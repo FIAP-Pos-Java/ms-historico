@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "ms-historico-api",
+		"name": "MS-Histórico - API REST",
+		"description": "Collection para testar os endpoints REST do microserviço de histórico de consultas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Criar Consulta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pacienteId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"medicoId\": \"123e4567-e89b-12d3-a456-426614174001\",\n  \"enfermeiroId\": \"123e4567-e89b-12d3-a456-426614174002\",\n  \"dataHora\": \"2024-12-20T14:30:00\",\n  \"observacoes\": \"Consulta de rotina\",\n  \"status\": \"AGENDADA\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas"
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Todas as Consultas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas"
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Consulta por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/consultas/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123e4567-e89b-12d3-a456-426614174000"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Consultas por Paciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/consultas/paciente/:pacienteId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas",
+								"paciente",
+								":pacienteId"
+							],
+							"variable": [
+								{
+									"key": "pacienteId",
+									"value": "123e4567-e89b-12d3-a456-426614174000"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Consultas Futuras por Paciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/consultas/paciente/:pacienteId/futuras",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas",
+								"paciente",
+								":pacienteId",
+								"futuras"
+							],
+							"variable": [
+								{
+									"key": "pacienteId",
+									"value": "123e4567-e89b-12d3-a456-426614174000"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Consultas por Médico",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/consultas/medico/:medicoId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas",
+								"medico",
+								":medicoId"
+							],
+							"variable": [
+								{
+									"key": "medicoId",
+									"value": "123e4567-e89b-12d3-a456-426614174001"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Consultas por Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/consultas/status/:status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas",
+								"status",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "AGENDADA"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Consulta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"REALIZADA\",\n  \"observacoes\": \"Consulta realizada com sucesso\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/consultas/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"consultas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123e4567-e89b-12d3-a456-426614174000"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "GraphQL",
+			"item": [
+				{
+					"name": "Listar Todas Consultas (GraphQL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": \"query { listarTodasConsultas { id pacienteId medicoId dataHora status observacoes } }\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Consulta por ID (GraphQL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": \"query { buscarConsultaPorId(id: \\\"123e4567-e89b-12d3-a456-426614174000\\\") { id pacienteId medicoId dataHora status observacoes } }\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Consultas por Paciente (GraphQL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": \"query { listarConsultasPorPaciente(pacienteId: \\\"123e4567-e89b-12d3-a456-426614174000\\\") { id medicoId dataHora status } }\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					}
+				},
+				{
+					"name": "Criar Consulta (GraphQL)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": \"mutation { criarConsulta(input: { pacienteId: \\\"123e4567-e89b-12d3-a456-426614174000\\\", medicoId: \\\"123e4567-e89b-12d3-a456-426614174001\\\", dataHora: \\\"2024-12-20T14:30:00\\\", observacoes: \\\"Consulta de rotina\\\", status: AGENDADA }) { id status } }\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"graphql"
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}

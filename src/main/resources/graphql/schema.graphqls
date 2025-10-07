@@ -1,0 +1,74 @@
+scalar UUID
+scalar DateTime
+
+enum StatusConsulta {
+    AGENDADA
+    CONFIRMADA
+    REALIZADA
+    CANCELADA
+    REAGENDADA
+}
+
+type Usuario {
+    id: UUID!
+    nome: String!
+    email: String!
+    role: String!
+}
+
+type Consulta {
+    id: UUID!
+    pacienteId: UUID!
+    medicoId: UUID!
+    enfermeiroId: UUID
+    dataHora: DateTime!
+    observacoes: String
+    status: StatusConsulta!
+    criadaEm: DateTime!
+    atualizadaEm: DateTime
+}
+
+input CriarConsultaInput {
+    pacienteId: UUID!
+    medicoId: UUID!
+    enfermeiroId: UUID
+    dataHora: DateTime!
+    observacoes: String
+    status: StatusConsulta
+}
+
+input AtualizarConsultaInput {
+    medicoId: UUID
+    enfermeiroId: UUID
+    dataHora: DateTime
+    observacoes: String
+    status: StatusConsulta
+}
+
+extend type Query {
+    # Listar todas as consultas
+    listarTodasConsultas: [Consulta!]!
+    
+    # Buscar consulta por ID
+    buscarConsultaPorId(id: UUID!): Consulta
+    
+    # Listar consultas de um paciente
+    listarConsultasPorPaciente(pacienteId: UUID!): [Consulta!]!
+    
+    # Listar consultas futuras de um paciente
+    listarConsultasFuturasPorPaciente(pacienteId: UUID!): [Consulta!]!
+    
+    # Listar consultas de um médico
+    listarConsultasPorMedico(medicoId: UUID!): [Consulta!]!
+    
+    # Listar consultas por status
+    listarConsultasPorStatus(status: StatusConsulta!): [Consulta!]!
+}
+
+extend type Mutation {
+    # Criar nova consulta
+    criarConsulta(input: CriarConsultaInput!): Consulta!
+    
+    # Atualizar consulta existente
+    atualizarConsulta(id: UUID!, input: AtualizarConsultaInput!): Consulta!
+}
