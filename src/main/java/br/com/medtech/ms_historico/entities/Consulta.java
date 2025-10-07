@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -28,7 +28,7 @@ public class Consulta {
     private UUID enfermeiroId;
 
     @Column(nullable = false)
-    private LocalDateTime dataHora;
+    private OffsetDateTime dataHora;
 
     @Column(length = 1000)
     private String observacoes;
@@ -38,17 +38,17 @@ public class Consulta {
     private StatusConsulta status;
 
     @Column(nullable = false)
-    private LocalDateTime criadaEm;
+    private OffsetDateTime criadaEm;
 
-    private LocalDateTime atualizadaEm;
+    private OffsetDateTime atualizadaEm;
 
     @PrePersist
     protected void onCreate() {
-        criadaEm = LocalDateTime.now();
+        criadaEm = OffsetDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        atualizadaEm = LocalDateTime.now();
+        atualizadaEm = OffsetDateTime.now();
     }
 }

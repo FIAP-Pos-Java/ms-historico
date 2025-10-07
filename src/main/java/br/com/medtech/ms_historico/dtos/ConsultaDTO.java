@@ -2,7 +2,7 @@ package br.com.medtech.ms_historico.dtos;
 
 import br.com.medtech.ms_historico.entities.StatusConsulta;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public record ConsultaDTO(
@@ -10,9 +10,9 @@ public record ConsultaDTO(
     UUID pacienteId,
     UUID medicoId,
     UUID enfermeiroId,
-    LocalDateTime dataHora,
+    OffsetDateTime dataHora,
     String observacoes,
     StatusConsulta status,
-    LocalDateTime criadaEm,
-    LocalDateTime atualizadaEm
+    OffsetDateTime criadaEm,
+    OffsetDateTime atualizadaEm
 ) {}

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,8 +24,8 @@ public interface ConsultaRepository extends JpaRepository<Consulta, UUID> {
     List<Consulta> findByPacienteIdAndStatus(UUID pacienteId, StatusConsulta status);
     
     @Query("SELECT c FROM Consulta c WHERE c.dataHora >= :dataInicio AND c.dataHora <= :dataFim")
-    List<Consulta> findByDataHoraBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
+    List<Consulta> findByDataHoraBetween(OffsetDateTime dataInicio, OffsetDateTime dataFim);
     
     @Query("SELECT c FROM Consulta c WHERE c.pacienteId = :pacienteId AND c.dataHora >= :dataInicio")
-    List<Consulta> findConsultasFuturasByPaciente(UUID pacienteId, LocalDateTime dataInicio);
+    List<Consulta> findConsultasFuturasByPaciente(UUID pacienteId, OffsetDateTime dataInicio);
 }

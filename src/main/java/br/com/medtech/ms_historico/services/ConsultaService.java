@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -100,7 +100,7 @@ public class ConsultaService {
     }
 
     public List<ConsultaDTO> listarConsultasFuturasPorPaciente(UUID pacienteId) {
-        return consultaRepository.findConsultasFuturasByPaciente(pacienteId, LocalDateTime.now()).stream()
+        return consultaRepository.findConsultasFuturasByPaciente(pacienteId, OffsetDateTime.now()).stream()
             .map(this::toDTO)
             .collect(Collectors.toList());
     }
