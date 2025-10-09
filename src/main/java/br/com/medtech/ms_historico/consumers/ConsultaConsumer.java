@@ -15,7 +15,7 @@ public class ConsultaConsumer {
 
     private final ConsultaService consultaService;
 
-    @RabbitListener(queues = RabbitMQConfiguration.CONSULTAS_QUEUE)
+    @RabbitListener(queues = { RabbitMQConfiguration.QUEUE_AGENDADA, RabbitMQConfiguration.QUEUE_CANCELADA })
     public void receberConsulta(ConsultaDTO consultaDTO) {
         log.info("Consulta recebida via RabbitMQ: {}", consultaDTO);
         try {

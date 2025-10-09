@@ -10,43 +10,41 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
+    public static final String EXCHANGE = "consulta.exchange";
 
-    public static final String USUARIOS_EXCHANGE = "usuarios.exchange";
-    public static final String USUARIOS_QUEUE = "usuarios.fila";
-    public static final String USUARIOS_ROUTING_KEY = "usuario.criado";
+    public static final String QUEUE_AGENDADA = "consulta.notificacao.agendada.queue";
+    public static final String QUEUE_CANCELADA = "consulta.notificacao.cancelada.queue";
 
-    public static final String CONSULTAS_EXCHANGE = "consultas.exchange";
-    public static final String CONSULTAS_QUEUE = "consultas.fila.historico";
-    public static final String CONSULTAS_ROUTING_KEY = "consulta.*";
+    public static final String ROUTING_KEY_AGENDADA = "consulta.notificacao.agendada";
+    public static final String ROUTING_KEY_CANCELADA = "consulta.notificacao.cancelada";
 
     @Bean
-    public TopicExchange usuariosExchange() {
-        return new TopicExchange(USUARIOS_EXCHANGE);
+    public DirectExchange directExchange() {
+        return new DirectExchange(EXCHANGE);
     }
 
     @Bean
-    public Queue usuariosQueue() {
-        return new Queue(USUARIOS_QUEUE);
+    public Queue agendadaQueue() {
+        return new Queue(QUEUE_AGENDADA, true);
     }
 
     @Bean
-    public Binding usuariosBinding(Queue usuariosQueue, TopicExchange usuariosExchange) {
-        return BindingBuilder.bind(usuariosQueue).to(usuariosExchange).with(USUARIOS_ROUTING_KEY);
+    public Queue canceladaQueue() {
+        return new Queue(QUEUE_CANCELADA, true);
     }
 
     @Bean
-    public TopicExchange consultasExchange() {
-        return new TopicExchange(CONSULTAS_EXCHANGE);
+    public Binding bindingAgendada(Queue agendadaQueue, DirectExchange directExchange) {
+        return BindingBuilder.bind(agendadaQueue)
+                .to(directExchange)
+                .with(ROUTING_KEY_AGENDADA);
     }
 
     @Bean
-    public Queue consultasQueue() {
-        return new Queue(CONSULTAS_QUEUE);
-    }
-
-    @Bean
-    public Binding consultasBinding(Queue consultasQueue, TopicExchange consultasExchange) {
-        return BindingBuilder.bind(consultasQueue).to(consultasExchange).with(CONSULTAS_ROUTING_KEY);
+    public Binding bindingCancelada(Queue canceladaQueue, DirectExchange directExchange) {
+        return BindingBuilder.bind(canceladaQueue)
+                .to(directExchange)
+                .with(ROUTING_KEY_CANCELADA);
     }
 
     @Bean
