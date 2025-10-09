@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
-    public static final String EXCHANGE = "consulta.exchange";
+    public static final String EXCHANGE = "consultas.exchange";
 
     public static final String QUEUE_AGENDADA = "consulta.notificacao.agendada.queue";
     public static final String QUEUE_CANCELADA = "consulta.notificacao.cancelada.queue";
