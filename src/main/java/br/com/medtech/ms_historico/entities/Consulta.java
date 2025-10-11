@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tb_consulta")
+@Table(name = "tb_consulta_historico")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +29,7 @@ public class Consulta {
     private UUID enfermeiroId;
 
     @Column(nullable = false)
-    private OffsetDateTime dataHora;
+    private LocalDateTime dataConsulta;
 
     @Column(length = 1000)
     private String observacoes;

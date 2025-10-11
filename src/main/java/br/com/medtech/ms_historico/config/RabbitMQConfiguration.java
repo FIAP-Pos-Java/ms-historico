@@ -10,17 +10,20 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
-    public static final String EXCHANGE = "consultas.exchange";
+    public static final String EXCHANGE_AGENDAMENTO = "agendamento.exchange";
+    public static final String EXCHANGE_CANCELAMENTO = "cancelamento.exchange";
 
-    public static final String QUEUE_AGENDADA = "consulta.notificacao.agendada.queue";
-    public static final String QUEUE_CANCELADA = "consulta.notificacao.cancelada.queue";
-
-    public static final String ROUTING_KEY_AGENDADA = "consulta.notificacao.agendada";
-    public static final String ROUTING_KEY_CANCELADA = "consulta.notificacao.cancelada";
+    public static final String QUEUE_AGENDADA = "consulta.historico.agendada.queue";
+    public static final String QUEUE_CANCELADA = "consulta.historico.cancelada.queue";
 
     @Bean
-    public DirectExchange directExchange() {
-        return new DirectExchange(EXCHANGE);
+    public FanoutExchange agendamentosExchange() {
+        return new FanoutExchange(EXCHANGE_AGENDAMENTO);
+    }
+
+    @Bean
+    public FanoutExchange cancelamentosExchange() {
+        return new FanoutExchange(EXCHANGE_CANCELAMENTO);
     }
 
     @Bean
@@ -34,17 +37,13 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public Binding bindingAgendada(Queue agendadaQueue, DirectExchange directExchange) {
-        return BindingBuilder.bind(agendadaQueue)
-                .to(directExchange)
-                .with(ROUTING_KEY_AGENDADA);
+    public Binding bindingAgendada(Queue agendadaQueue, FanoutExchange agendamentosExchange) {
+        return BindingBuilder.bind(agendadaQueue).to(agendamentosExchange);
     }
 
     @Bean
-    public Binding bindingCancelada(Queue canceladaQueue, DirectExchange directExchange) {
-        return BindingBuilder.bind(canceladaQueue)
-                .to(directExchange)
-                .with(ROUTING_KEY_CANCELADA);
+    public Binding bindingCancelada(Queue canceladaQueue, FanoutExchange cancelamentosExchange) {
+        return BindingBuilder.bind(canceladaQueue).to(cancelamentosExchange);
     }
 
     @Bean
@@ -53,9 +52,9 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter messageConverter) {
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(messageConverter);
+        rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
     }
 }

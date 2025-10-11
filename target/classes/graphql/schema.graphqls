@@ -21,7 +21,7 @@ type Consulta {
     pacienteId: UUID!
     medicoId: UUID!
     enfermeiroId: UUID
-    dataConsulta: DateTime!
+    dataHora: DateTime!
     observacoes: String
     status: StatusConsulta!
     criadaEm: DateTime!
@@ -32,7 +32,7 @@ input CriarConsultaInput {
     pacienteId: UUID!
     medicoId: UUID!
     enfermeiroId: UUID
-    dataConsulta: DateTime!
+    dataHora: DateTime!
     observacoes: String
     status: StatusConsulta
 }
@@ -40,7 +40,7 @@ input CriarConsultaInput {
 input AtualizarConsultaInput {
     medicoId: UUID
     enfermeiroId: UUID
-    dataConsulta: DateTime
+    dataHora: DateTime
     observacoes: String
     status: StatusConsulta
 }
