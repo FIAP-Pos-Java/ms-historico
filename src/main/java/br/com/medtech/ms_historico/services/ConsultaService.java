@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,7 +29,7 @@ public class ConsultaService {
         consulta.setPacienteId(dto.pacienteId());
         consulta.setMedicoId(dto.medicoId());
         consulta.setEnfermeiroId(dto.enfermeiroId());
-        consulta.setDataHora(dto.dataHora());
+        consulta.setDataConsulta(dto.dataConsulta());
         consulta.setObservacoes(dto.observacoes());
         consulta.setStatus(dto.status() != null ? dto.status() : StatusConsulta.AGENDADA);
 
@@ -46,7 +46,7 @@ public class ConsultaService {
         consulta.setPacienteId(consultaDTO.pacienteId());
         consulta.setMedicoId(consultaDTO.medicoId());
         consulta.setEnfermeiroId(consultaDTO.enfermeiroId());
-        consulta.setDataHora(consultaDTO.dataHora());
+        consulta.setDataConsulta(consultaDTO.dataConsulta());
         consulta.setObservacoes(consultaDTO.observacoes());
         consulta.setStatus(consultaDTO.status());
 
@@ -65,8 +65,8 @@ public class ConsultaService {
         if (dto.enfermeiroId() != null) {
             consulta.setEnfermeiroId(dto.enfermeiroId());
         }
-        if (dto.dataHora() != null) {
-            consulta.setDataHora(dto.dataHora());
+        if (dto.dataConsulta() != null) {
+            consulta.setDataConsulta(dto.dataConsulta());
         }
         if (dto.observacoes() != null) {
             consulta.setObservacoes(dto.observacoes());
@@ -100,7 +100,7 @@ public class ConsultaService {
     }
 
     public List<ConsultaDTO> listarConsultasFuturasPorPaciente(UUID pacienteId) {
-        return consultaRepository.findConsultasFuturasByPaciente(pacienteId, OffsetDateTime.now()).stream()
+        return consultaRepository.findConsultasFuturasByPaciente(pacienteId, LocalDateTime.now()).stream()
             .map(this::toDTO)
             .collect(Collectors.toList());
     }
@@ -123,7 +123,7 @@ public class ConsultaService {
             consulta.getPacienteId(),
             consulta.getMedicoId(),
             consulta.getEnfermeiroId(),
-            consulta.getDataHora(),
+            consulta.getDataConsulta(),
             consulta.getObservacoes(),
             consulta.getStatus(),
             consulta.getCriadaEm(),
